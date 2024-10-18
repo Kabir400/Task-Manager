@@ -1,0 +1,8 @@
+.dashboardContainer {
+  display: flex;
+}
+
+.boardContainer {
+  background-color: bisque;
+  width: 80%;
+}

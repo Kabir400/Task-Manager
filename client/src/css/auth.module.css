@@ -1,0 +1,183 @@
+.authContainer {
+  display: flex;
+}
+
+/* auth image started here */
+
+.authImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #17a2b8;
+  width: 60%;
+}
+
+.imageFlexContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.authImageText {
+  text-align: center;
+  color: #ffffff;
+  font-family: "Open Sans", serif;
+  font-size: 15px;
+}
+.authImageTitle {
+  color: #ffffff;
+  font-family: "Open Sans", serif;
+  margin-bottom: 4px;
+  font-size: 26px;
+  font-weight: 500;
+  word-spacing: 1px;
+}
+
+.authImageBorder {
+  position: absolute;
+  top: -42px;
+  left: -15px;
+}
+.authImageBox {
+  position: relative;
+}
+.authMainImage {
+  z-index: 100;
+  position: relative;
+}
+
+/* ...................................................... */
+
+/* auth from started here */
+
+.authForm {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.authTitle {
+  font-family: "Open Sans", serif;
+  margin-bottom: 60px;
+  font-size: 31px;
+  color: #343434;
+}
+
+.authBtnPrimary {
+  font-family: "Open Sans", serif;
+}
+.authSubtext {
+  font-family: "Open Sans", serif;
+}
+
+.authBtnSecondary {
+  font-family: "Open Sans", serif;
+}
+.authFormBox {
+  width: 70%;
+}
+.authInputBox {
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+.authInput {
+  width: 100%;
+  padding: 12px 45px;
+  border: 1.38px solid #d0d0d0;
+  border-radius: 11.03px;
+}
+.authInputIcon {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+.authBtnPrimary {
+  margin-top: 20px;
+  width: 70%;
+  background-color: #17a2b8;
+  color: #ffffff;
+  font-family: "Open Sans", serif;
+  padding: 14px;
+  text-align: center;
+  border-radius: 64.13px;
+}
+
+.authSubtext {
+  color: #828282;
+  margin-top: 30px;
+}
+
+.authBtnSecondary {
+  margin-top: 20px;
+  width: 70%;
+  border: 1.38px solid #17a2b8;
+  color: #17a2b8;
+
+  font-family: "Open Sans", serif;
+  padding: 12px;
+  text-align: center;
+  border-radius: 64.13px;
+}
+.authInputPasswordIcon {
+  position: absolute;
+  top: 11px;
+  right: 5px;
+  width: 23px;
+}
+
+/* ............................................... */
+
+/* transition and animations */
+
+/* Button hover effect */
+.authBtnPrimary,
+.authBtnSecondary {
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.authBtnPrimary:hover {
+  background-color: #138496;
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.4); /* Soft glow around button */
+}
+
+.authBtnSecondary:hover {
+  background-color: #ffffff;
+  color: #138496;
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.4); /*solf glow*/
+}
+
+.authBtnPrimary:active,
+.authBtnSecondary:active {
+  transform: scale(0.98); /* Subtle shrink effect on click */
+  box-shadow: 0 2px 8px rgba(23, 162, 184, 0.2); /* Diminished glow when clicked */
+}
+/* ........................................................ */
+
+/* soft glow effect in the input field while focused */
+.authInput {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.authInput:focus {
+  border-color: #17a2b8;
+  box-shadow: 0 0 8px rgba(23, 162, 184, 0.5); /* Soft glow effect */
+  outline: none;
+}
+
+/* .................................................. */
+
+/* password toggle transition*/
+.authInputPasswordIcon {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.authInputPasswordIcon:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}

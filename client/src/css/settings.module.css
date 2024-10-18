@@ -1,0 +1,8 @@
+.settingsContainer {
+  display: flex;
+}
+
+.settingsBox {
+  background-color: aquamarine;
+  width: 80%;
+}

@@ -1,0 +1,8 @@
+.analaticsContainer {
+  display: flex;
+}
+
+.analaticsBox {
+  background-color: rgb(172, 252, 115);
+  width: 80%;
+}
