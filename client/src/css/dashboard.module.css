@@ -3,6 +3,122 @@
 }
 
 .boardContainer {
-  background-color: bisque;
   width: 80%;
+  position: relative;
+}
+
+.boardHeadingBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px;
+}
+.boardHeadingContainer {
+  display: flex;
+  gap: 25px;
+  margin-left: 25px;
+}
+.boardHeading {
+  font-size: 23px;
+  font-weight: 500;
+}
+/* add people */
+.addPeopleIcon {
+  width: 20px;
+  height: 20px;
+  margin-top: 6px;
+}
+.addpeopleContainer {
+  display: flex;
+  gap: 8px;
+}
+.addPeople {
+  color: #707070;
+  font-size: 16px;
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* filter dropdown */
+.dropdownHeading {
+  margin-right: 25px;
+  display: flex;
+  gap: 6px;
+  cursor: pointer;
+}
+.dropdownIcon {
+  width: 11px;
+  height: 11px;
+  margin-top: 7px;
+  transition: transform 0.3s ease;
+}
+.dropdownHeadingText {
+  color: #000000;
+}
+
+/* filter popup */
+.filterPopup {
+  position: absolute;
+  top: 128px;
+  right: 58px;
+  border-radius: 12px;
+  z-index: 100;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* in this case box shadow is added extra because in figma you did't show how the popup will look like in the ui i tried to implement it without useing box shadow but it combines with the white background we can't seperate them as individual entity that why style is bit different */
+  padding: 20px;
+  width: 153px;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none; /* To disable interaction when hidden */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.filermenue {
+  padding: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+/*filter trangition*/
+.Filtershow {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.FilterIconReverse {
+  transform: rotate(180deg);
+}
+
+.filermenue:hover {
+  background-color: #f0f0f0;
+}
+
+/* add people trangistion */
+.addpeopleContainer {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.addpeopleContainer:hover {
+  transform: scale(1.05);
+}
+
+/* name and date */
+.dashboardName {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
+}
+.dashboardDate {
+  position: absolute;
+  color: #707070;
+  top: 25px;
+  right: 20px;
+  font-size: 16px;
+  font-weight: 500;
 }
