@@ -1,0 +1,118 @@
+.cardContainer {
+  background-color: #ffffff;
+  width: 91%;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.cardPriorityContainer {
+  display: flex;
+  gap: 4px;
+  margin-top: 30px;
+  margin-left: 20px;
+  padding-top: 19px;
+}
+
+.cardPriorityIcon {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+.highPriority {
+  background-color: #ff2473;
+}
+.moderatePriority {
+  background-color: #18b0ff;
+}
+.lowPriority {
+  background-color: #63c05b;
+}
+
+.cardPriorityText {
+  color: #707070;
+  font-size: 14px;
+}
+
+.cardTitle {
+  margin-top: 12px;
+  margin-left: 20px;
+  font-size: 21px;
+  font-weight: 600;
+}
+.cardCheckListContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+.cardCheckListTitle {
+  font-size: 18px;
+  font-weight: 500;
+}
+.dropdownContainer {
+  /* border: 1.1px solid #767575; */
+  background-color: #eeecec;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardProgressContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 20px;
+  margin-top: 16px;
+}
+.dueDateHighPriority {
+  background-color: #cf3636;
+  color: white;
+}
+.dueDate {
+  border-radius: 8px;
+  padding: 5px 6px;
+  font-size: 9px;
+}
+
+.progressBox {
+  display: flex;
+  gap: 10px;
+}
+.progress {
+  font-size: 9px;
+  background-color: #eeecec;
+  color: #767575;
+  border-radius: 8px;
+  padding: 5px 6px;
+}
+
+/* dropdown item starts here */
+.checkListDropdownContainer {
+  margin: 0 10px 10px 20px;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+}
+.checkListCheckbox {
+  border: 2px solid #e2e2e2;
+  border-radius: 6px;
+}
+.checkListDropdownText {
+  font-size: 14px;
+}
+.dropdownItems {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+.rotateDropdown {
+  transform: rotate(180deg);
+}
+.ChecklistDropdown {
+  transition: transform 0.3s ease;
+}

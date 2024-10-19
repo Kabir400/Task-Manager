@@ -122,3 +122,54 @@
   font-size: 16px;
   font-weight: 500;
 }
+
+/* task section */
+.taskContainer {
+  display: flex;
+  gap: 20px;
+  margin-top: 40px;
+  height: calc(100vh - 180px);
+  margin-left: 20px;
+  overflow-x: auto;
+}
+
+.taskBox {
+  width: 300px;
+  background-color: #eef2f5;
+  border-radius: 10px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* styling scrollbar */
+.taskContainer::-webkit-scrollbar {
+  height: 10px;
+}
+.taskContainer::-webkit-scrollbar-thumb {
+  background: #9cb7c5;
+  border-radius: 10px;
+}
+
+/* inside task card */
+.taskBoxHeadingBox {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+.taskBoxUtilityBox {
+  display: flex;
+  gap: 20px;
+}
+.taskBoxTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+.colapsIcon {
+  width: 18px;
+  height: 18px;
+}
+.addTodoIcon {
+  width: 15px;
+  height: 15px;
+}
