@@ -20,7 +20,7 @@ const checkLogin = TryCatch(async (req, res, next) => {
   const { accessToken, refreshToken } = req.cookies;
 
   if (!accessToken && !refreshToken) {
-    next(new ApiError(401, "you are unauthorized"));
+    return next(new ApiError(401, "you are unauthorized"));
   }
 
   let token, secret;
@@ -38,7 +38,7 @@ const checkLogin = TryCatch(async (req, res, next) => {
   const user = await userModel.findById(decoded._id).select("-password");
 
   if (!user) {
-    throw new ApiError(400, "Invalid Token", null, false);
+    return next(new ApiError(401, "You are unauthorized", null, false));
   }
 
   // If refreshToken is used, generate new tokens

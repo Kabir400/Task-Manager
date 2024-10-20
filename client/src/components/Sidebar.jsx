@@ -1,6 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import style from "../css/nav.module.css";
 import { Link, useLocation } from "react-router-dom";
+
+//components
+import LogoutPopup from "../popup/LogoutPopup.jsx";
 
 //images
 import board from "../assets/board.png";
@@ -11,6 +14,11 @@ import logout from "../assets/Logout.png";
 
 function Sidebar() {
   const location = useLocation();
+  const [showLogout, setShowLogout] = useState(false);
+
+  const toggleLogoutPopup = () => {
+    setShowLogout(!showLogout);
+  };
 
   return (
     <div className={style.sidebarContainer}>
@@ -76,10 +84,11 @@ function Sidebar() {
         </Link>
       </div>
 
-      <div className={style.logoutBox}>
+      <div className={style.logoutBox} onClick={toggleLogoutPopup}>
         <img src={logout} alt="logo" className={style.logoutIcon} />
         <h3 className={style.logoutTitle}>Log out</h3>
       </div>
+      <LogoutPopup show={showLogout} togglePopup={toggleLogoutPopup} />
     </div>
   );
 }

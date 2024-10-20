@@ -1,7 +1,10 @@
 import { useState } from "react";
+
+//components
 import style from "../css/dashboard.module.css";
 import Sidebar from "../components/Sidebar.jsx";
 import Card from "../components/Card.jsx";
+import LogoutPopup from "../popup/LogoutPopup.jsx";
 
 //image
 import people from "../assets/people.png";

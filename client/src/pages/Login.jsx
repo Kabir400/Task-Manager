@@ -11,17 +11,24 @@ import { toast } from "react-toastify";
 import AuthImage from "../components/AuthImage";
 import style from "../css/auth.module.css";
 import postRequest from "../utility/postRequest.js";
+import useVerify from "../cutomHook/useVerify.jsx"; //custom hook
 
 // images
 import email from "../assets/email.png";
 import password from "../assets/password.png";
 import passwordHide from "../assets/passwordHide.png";
 import passwordView from "../assets/passwordView.png";
+
 function Login() {
+  //if logged in move to the home page
+  useVerify();
+
+  // variables
   const navigate = useNavigate();
   const [passwordShown, setPasswordShown] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
+  //utility functions
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
