@@ -1,10 +1,15 @@
-import { useState } from "react";
+//base url
+const base_url = import.meta.env.VITE_BASE_URL;
+
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 //components
 import style from "../css/dashboard.module.css";
 import Sidebar from "../components/Sidebar.jsx";
 import Card from "../components/Card.jsx";
-import LogoutPopup from "../popup/LogoutPopup.jsx";
+import getRequest from "../utility/getRequest.js";
+import Loader from "../components/Loader.jsx";
 
 //image
 import people from "../assets/people.png";
@@ -14,10 +19,37 @@ import plus from "../assets/plus.png";
 
 function Dashboard() {
   const [isFiler, setIsFilter] = useState(false);
+  const [allTasks, setAllTasks] = useState([]);
+  const [backlog, setBacklog] = useState([]);
+  const [todo, setTodo] = useState([]);
+  const [inprogress, setInProgress] = useState([]);
+  const [done, setDone] = useState([]);
+  const [isfetched, setIsFetched] = useState(false);
 
   const toggleFilter = () => {
     setIsFilter(!isFiler);
   };
+
+  //fetch tasks
+  useEffect(() => {
+    (async () => {
+      const result = await getRequest(`${base_url}/task/week`);
+      if (result.suceess) {
+        setAllTasks(result.data);
+        setBacklog(result.data.filter((task) => task.status === "BACKLOG"));
+        setTodo(result.data.filter((task) => task.status === "TO-DO"));
+        setInProgress(result.data.filter((task) => task.status === "PROGRESS"));
+        setDone(result.data.filter((task) => task.status === "DONE"));
+        setIsFetched(true);
+      } else {
+        setIsFetched(true);
+        toast.error(result.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+    })();
+  }, []);
 
   return (
     <div className={style.dashboardContainer}>
@@ -72,7 +104,19 @@ function Dashboard() {
                 <img src={colaps} alt="colaps" className={style.colapsIcon} />
               </div>
             </div>
-            <Card />
+            {!isfetched && backlog.length === 0 && <Loader />}
+            {backlog.map((task, index) => {
+              return (
+                <Card
+                  key={task._id}
+                  priority={task.priority}
+                  title={task.title}
+                  checkList={task.checkLists}
+                  status={task.status}
+                  dueDate={task.dueDate}
+                />
+              );
+            })}
           </div>
           {/* taskBox */}
           <div className={style.taskBox}>
@@ -83,6 +127,19 @@ function Dashboard() {
                 <img src={colaps} alt="colaps" className={style.colapsIcon} />
               </div>
             </div>
+            {!isfetched && todo.length === 0 && <Loader />}
+            {todo.map((task, index) => {
+              return (
+                <Card
+                  key={task._id}
+                  priority={task.priority}
+                  title={task.title}
+                  checkList={task.checkLists}
+                  status={task.status}
+                  dueDate={task.dueDate}
+                />
+              );
+            })}
           </div>
           {/* taskBox */}
           <div className={style.taskBox}>
@@ -92,6 +149,19 @@ function Dashboard() {
                 <img src={colaps} alt="colaps" className={style.colapsIcon} />
               </div>
             </div>
+            {!isfetched && inprogress.length === 0 && <Loader />}
+            {inprogress.map((task, index) => {
+              return (
+                <Card
+                  key={task._id}
+                  priority={task.priority}
+                  title={task.title}
+                  checkList={task.checkLists}
+                  status={task.status}
+                  dueDate={task.dueDate}
+                />
+              );
+            })}
           </div>
           {/* taskBox */}
           <div className={style.taskBox}>
@@ -101,6 +171,19 @@ function Dashboard() {
                 <img src={colaps} alt="colaps" className={style.colapsIcon} />
               </div>
             </div>
+            {!isfetched && done.length === 0 && <Loader />}
+            {done.map((task, index) => {
+              return (
+                <Card
+                  key={task._id}
+                  priority={task.priority}
+                  title={task.title}
+                  checkList={task.checkLists}
+                  status={task.status}
+                  dueDate={task.dueDate}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

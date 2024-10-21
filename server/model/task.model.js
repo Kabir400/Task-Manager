@@ -6,12 +6,22 @@ const taskSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    priority: { type: String, enum: ["low", "moderate", "high"] },
+    priority: {
+      type: String,
+      enum: ["LOW PRIORITY", "MODERATE PRIORITY", "HIGH PRIORITY"],
+    },
     status: {
       type: String,
-      enum: ["todo", "backlog", "inprogress", "done"],
-      default: "todo",
+      enum: ["TO-DO", "BACKLOG", "PROGRESS", "DONE"],
+      default: "TO-DO",
     },
+
+    checkLists: [
+      {
+        title: { type: String, required: true },
+        status: { type: Boolean, default: false },
+      },
+    ],
     assignTo: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",

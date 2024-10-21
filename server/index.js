@@ -23,6 +23,7 @@ app.use(cookieParser());
 
 //routes
 app.use("/api/v1", require("./router/user.router.js"));
+app.use("/api/v1", require("./router/task.router.js"));
 
 //defalut error handler middleware
 app.use((err, req, res, next) => {

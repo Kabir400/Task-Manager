@@ -1,27 +1,35 @@
 import { useState, useRef } from "react";
 import style from "../css/card.module.css";
 
-//checkList arr
-const checkListArr = [
-  "this is a random task",
-  "go eat samosas",
-  "make the best ever samosas",
-  // Add more tasks here
-];
-
 //images
 import arrowDown from "../assets/dropdown2.png";
 
-function Card() {
+function Card({ priority, title, checkList, status, dueDate }) {
+  //status list
+  const statusList = ["TO-DO", "BACKLOG", "PROGRESS", "DONE"];
+
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
 
+  // Count completed tasks
+  const completedTasks = checkList.filter(
+    (item) => item.status === true
+  ).length;
+
+  // Total tasks
+  const totalTasks = checkList.length;
+
   const CheckListItems = () => {
-    return checkListArr.map((item, index) => {
+    return checkList.map((item, index) => {
       return (
         <div className={style.checkListDropdownContainer} key={index}>
-          <input type="checkbox" className={style.checkListCheckbox} />
-          <p className={style.checkListDropdownText}>{item}</p>
+          <input
+            type="checkbox"
+            checked={item.status}
+            onChange={() => {}}
+            className={style.checkListCheckbox}
+          />
+          <p className={style.checkListDropdownText}>{item.title}</p>
         </div>
       );
     });
@@ -45,13 +53,23 @@ function Card() {
     <div className={style.cardContainer}>
       <div className={style.cardPriorityContainer}>
         <div
-          className={`${style.cardPriorityIcon} ${style.highPriority}`}
+          className={`${style.cardPriorityIcon} ${
+            "HIGH PRIORITY"
+              ? style.highPriority
+              : "LOW PRIORITY"
+              ? style.lowPriority
+              : "MODERATE PRIORITY"
+              ? style.moderatePriority
+              : ""
+          }`}
         ></div>
-        <p className={style.cardPriorityText}>HIGH PRIORITY</p>
+        <p className={style.cardPriorityText}>{priority}</p>
       </div>
-      <h3 className={style.cardTitle}>Hero section</h3>
+      <h3 className={style.cardTitle}>{title}</h3>
       <div className={style.cardCheckListContainer}>
-        <h5 className={style.cardCheckListTitle}>Checklist (0/3)</h5>
+        <h5 className={style.cardCheckListTitle}>
+          Checklist ({completedTasks}/{totalTasks})
+        </h5>
         <div className={style.dropdownContainer} onClick={toggleDropdown}>
           <img
             src={arrowDown}
@@ -75,12 +93,18 @@ function Card() {
 
       <div className={style.cardProgressContainer}>
         <div className={`${style.dueDate} ${style.dueDateHighPriority}`}>
-          Feb 10th
+          {dueDate}
         </div>
         <div className={style.progressBox}>
-          <div className={style.progress}>PROGRESS</div>
-          <div className={style.progress}>TO-DO</div>
-          <div className={style.progress}>DONE</div>
+          {statusList
+            .filter((item) => item != status)
+            .map((item, index) => {
+              return (
+                <div className={style.progress} key={index}>
+                  {item}
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
