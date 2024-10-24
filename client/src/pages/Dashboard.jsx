@@ -11,6 +11,8 @@ import Sidebar from "../components/Sidebar.jsx";
 import Card from "../components/Card.jsx";
 import getRequest from "../utility/getRequest.js";
 import Loader from "../components/Loader.jsx";
+import EditTaskPopup from "../popup/EditTaskPopup.jsx";
+import DeletePopup from "../popup/DeletePopup.jsx";
 
 //popups
 import CreateTaskPopup from "../popup/CreateTaskPopup.jsx";
@@ -29,7 +31,20 @@ function Dashboard() {
   const [done, setDone] = useState([]);
   const [isfetched, setIsFetched] = useState(false);
   const [isCreatePopup, setCreatePopup] = useState(false);
+  const [isEditPopup, setIsEditPopup] = useState(false);
   const [reload, setReload] = useState(false);
+  const [copyToast, setCopyToast] = useState(false);
+  const [isDeletePopup, setIsDeletePopup] = useState(false);
+
+  const [editData, setEditData] = useState({
+    title: "",
+    priority: null,
+    assignTo: null,
+    dueDate: null,
+    checkLists: [],
+  });
+  const [taskId, setTaskId] = useState("");
+
   const navigate = useNavigate();
 
   const toggleFilter = () => {
@@ -40,6 +55,13 @@ function Dashboard() {
     setCreatePopup(!isCreatePopup);
   };
 
+  const toggleEditPopup = () => {
+    setIsEditPopup(!isEditPopup);
+  };
+
+  const toggleDeletePopup = () => {
+    setIsDeletePopup(!isDeletePopup);
+  };
   //fetch tasks
   useEffect(() => {
     (async () => {
@@ -129,6 +151,13 @@ function Dashboard() {
                   checkList={task.checkLists}
                   status={task.status}
                   dueDate={task.dueDate}
+                  toggleEditPopup={toggleEditPopup}
+                  setEditData={setEditData}
+                  taskId={task._id}
+                  setReload={setReload}
+                  setCopyToast={setCopyToast}
+                  toggleDeletePopup={toggleDeletePopup}
+                  setTaskId={setTaskId}
                 />
               );
             })}
@@ -158,6 +187,13 @@ function Dashboard() {
                   status={task.status}
                   dueDate={task.dueDate}
                   assignTo={task.assignTo}
+                  toggleEditPopup={toggleEditPopup}
+                  setEditData={setEditData}
+                  taskId={task._id}
+                  setReload={setReload}
+                  setCopyToast={setCopyToast}
+                  toggleDeletePopup={toggleDeletePopup}
+                  setTaskId={setTaskId}
                 />
               );
             })}
@@ -180,6 +216,13 @@ function Dashboard() {
                   checkList={task.checkLists}
                   status={task.status}
                   dueDate={task.dueDate}
+                  toggleEditPopup={toggleEditPopup}
+                  setEditData={setEditData}
+                  taskId={task._id}
+                  setReload={setReload}
+                  setCopyToast={setCopyToast}
+                  toggleDeletePopup={toggleDeletePopup}
+                  setTaskId={setTaskId}
                 />
               );
             })}
@@ -202,6 +245,13 @@ function Dashboard() {
                   checkList={task.checkLists}
                   status={task.status}
                   dueDate={task.dueDate}
+                  toggleEditPopup={toggleEditPopup}
+                  setEditData={setEditData}
+                  taskId={task._id}
+                  setReload={setReload}
+                  setCopyToast={setCopyToast}
+                  toggleDeletePopup={toggleDeletePopup}
+                  setTaskId={setTaskId}
                 />
               );
             })}
@@ -215,6 +265,24 @@ function Dashboard() {
           setReload={setReload}
         />
       )}
+      {isEditPopup && (
+        <EditTaskPopup
+          show={isEditPopup}
+          togglePopup={toggleEditPopup}
+          setReload={setReload}
+          data={editData}
+        />
+      )}
+
+      {isDeletePopup && (
+        <DeletePopup
+          show={isDeletePopup}
+          togglePopup={toggleDeletePopup}
+          setReload={setReload}
+          taskId={taskId}
+        />
+      )}
+      {copyToast && <div className={style.copyToast}>Link Copied</div>}
     </div>
   );
 }

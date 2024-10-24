@@ -18,6 +18,7 @@ const getinitials = TryCatch(async (req, res, next) => {
 
   const apiresponse = new ApiResponse(200, "User found successfully", true, {
     initials,
+    email: user.email,
   });
   res.status(200).json(apiresponse);
 });

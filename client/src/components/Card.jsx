@@ -5,18 +5,39 @@ import { useState, useRef, useEffect } from "react";
 import style from "../css/card.module.css";
 import { formatDate, checkDueDatePassed } from "../utility/formatDate.js";
 import getRequest from "../utility/getRequest.js";
+import putRequest from "../utility/putRequest.js";
+import deleteRequest from "../utility/deleteRequest.js";
 import { useNavigate } from "react-router-dom";
+import { formatymd } from "../utility/formatDate.js";
+import { toast } from "react-toastify";
 
 //images
 import arrowDown from "../assets/dropdown2.png";
+import edit from "../assets/editDot.png";
 
-function Card({ priority, title, checkList, status, dueDate, assignTo }) {
+function Card({
+  priority,
+  title,
+  checkList,
+  status,
+  dueDate,
+  assignTo,
+  toggleEditPopup,
+  setEditData,
+  taskId,
+  setReload,
+  setCopyToast,
+  toggleDeletePopup,
+  setTaskId,
+}) {
   //status list
   const statusList = ["TO-DO", "BACKLOG", "PROGRESS", "DONE"];
 
   const [show, setShow] = useState(false);
   const [initials, setInitials] = useState("");
+  const [isDropdown, setIsDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   // Count completed tasks
@@ -32,13 +53,13 @@ function Card({ priority, title, checkList, status, dueDate, assignTo }) {
     if (assignTo) {
       (async () => {
         const result = await getRequest(`${base_url}/getinitials/${assignTo}`);
-
         if (result.status === 401) {
           navigate("/login");
         }
 
         if (result.suceess === true) {
           setInitials(result.data.initials);
+          setEmail(result.data.email);
         }
       })();
     }
@@ -72,6 +93,72 @@ function Card({ priority, title, checkList, status, dueDate, assignTo }) {
     }
 
     setShow(!show);
+  };
+
+  //edit handler
+  const editHandler = () => {
+    setIsDropdown(!isDropdown);
+    setEditData({
+      title,
+      priority,
+      dueDate: formatymd(dueDate),
+      email,
+      checkLists: checkList,
+      id: assignTo,
+      taskId: taskId,
+    });
+    toggleEditPopup();
+  };
+
+  //change status
+  const changeStatus = async (status) => {
+    const result = await putRequest(`${base_url}/task/status`, {
+      taskId,
+      status,
+    });
+    if (result.status === 401) {
+      navigate("/login");
+    }
+
+    if (result.suceess === false) {
+      toast.error(result.message, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+    if (result.suceess === true) {
+      toast.success(result.message, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      setReload(true);
+    }
+  };
+
+  //delete task
+  const deleteTask = async () => {
+    setTaskId(taskId);
+    toggleDeletePopup();
+  };
+
+  //copy the url
+  const shareHandler = () => {
+    navigator.clipboard
+      .writeText(`${base_url}/task/${taskId}`)
+      .then(() => {
+        setCopyToast(true);
+        setTimeout(() => {
+          setCopyToast(false);
+        }, [3000]);
+      })
+      .catch((err) => {
+        toast.error("Falied to copy the url", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      });
+
+    setIsDropdown(!isDropdown);
   };
 
   return (
@@ -141,11 +228,42 @@ function Card({ priority, title, checkList, status, dueDate, assignTo }) {
             .filter((item) => item != status)
             .map((item, index) => {
               return (
-                <div className={style.progress} key={index}>
+                <div
+                  className={style.progress}
+                  key={index}
+                  onClick={() => changeStatus(item)}
+                >
                   {item}
                 </div>
               );
             })}
+        </div>
+      </div>
+
+      {/* edit */}
+      <div className={style.editBox} onClick={() => setIsDropdown(!isDropdown)}>
+        <img src={edit} alt="edit" className={style.editIcon} />
+        <img src={edit} alt="edit" className={style.editIcon} />
+        <img src={edit} alt="edit" className={style.editIcon} />
+      </div>
+
+      {/* edit-dropdown */}
+      <div
+        className={`${style.editDropdownBox} ${
+          isDropdown ? style.show : style.hide
+        }`}
+      >
+        <div className={style.editDropdownTitle} onClick={editHandler}>
+          Edit
+        </div>
+        <div className={style.editDropdownTitle} onClick={shareHandler}>
+          Share
+        </div>
+        <div
+          className={`${style.editDropdownTitle} ${style.deleteTitle}`}
+          onClick={deleteTask}
+        >
+          Delete
         </div>
       </div>
     </div>

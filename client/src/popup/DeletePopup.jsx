@@ -1,22 +1,41 @@
+//base url
+const base_url = import.meta.env.VITE_BASE_URL;
+
 import { useState } from "react";
 import styles from "../css/popup.module.css";
-import postRequest from "../utility/postRequest.js";
 import { useNavigate } from "react-router-dom";
-function LogoutPopup({ show, togglePopup }) {
+import deleteRequest from "../utility/deleteRequest.js";
+import { toast } from "react-toastify";
+
+function LogoutPopup({ show, togglePopup, taskId, setReload }) {
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
   const clickHandler = async () => {
     setIsPending(true);
-    const result = await postRequest(
-      `${import.meta.env.VITE_BASE_URL}/logout`,
-      {}
-    );
 
-    setIsPending(false);
-    if (result.suceess === true) {
-      togglePopup();
+    const result = await deleteRequest(`${base_url}/task/delete`, {
+      taskId,
+    });
+    if (result.status === 401) {
       navigate("/login");
+    }
+
+    if (result.suceess === false) {
+      toast.error(result.message, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      togglePopup();
+    }
+    if (result.suceess === true) {
+      toast.success(result.message, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      setIsPending(false);
+      setReload(true);
+      togglePopup();
     }
   };
 
