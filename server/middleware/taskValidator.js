@@ -22,15 +22,21 @@ const taskValidator = [
 
   // Validate due date
   body("dueDate")
-    .optional()
-    .isISO8601()
-    .toDate()
+    .custom((value) => {
+      if (value === null || value === undefined) {
+        return true; // Allow null or undefined
+      }
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        throw new Error("Invalid due date format");
+      }
+      return true;
+    })
     .withMessage("Invalid due date format"),
 
   // Validate checklist array
   body("checkLists")
     .isArray({ min: 1 })
-    .withMessage("Checklist must be an array with at least one item"),
+    .withMessage("You must have at least one checklist item"),
 
   // Validate each checklist item
   body("checklists.*.title")
@@ -46,4 +52,5 @@ const taskValidator = [
     .withMessage("Status must be a boolean value"),
 ];
 
+// don't know why this wired error message is showing up when we passed a blank title in checkList array----> task validation failed: checkLists.0.title: Path `title` is required
 module.exports = taskValidator;

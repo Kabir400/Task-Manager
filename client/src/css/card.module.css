@@ -3,11 +3,12 @@
   width: 91%;
   border-radius: 20px;
   margin: auto;
+  margin-bottom: 29px;
 }
 
 .cardPriorityContainer {
   display: flex;
-  gap: 4px;
+  gap: 7px;
   margin-top: 30px;
   margin-left: 20px;
   padding-top: 19px;
@@ -34,11 +35,32 @@
   font-size: 14px;
 }
 
+.cardPriorityInitials {
+  background-color: #ffebeb;
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  padding: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 500;
+}
+
 .cardTitle {
   margin-top: 12px;
   margin-left: 20px;
-  font-size: 21px;
+  margin-right: 20px;
+  font-size: 20px;
   font-weight: 600;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limits to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 .cardCheckListContainer {
   display: flex;
@@ -62,10 +84,11 @@
 .cardProgressContainer {
   display: flex;
   justify-content: space-between;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding-bottom: 20px;
-  margin-top: 16px;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding-bottom: 15px;
+  margin-top: 8px;
+  gap: 6px;
 }
 .dueDateHighPriority {
   background-color: #cf3636;
@@ -76,10 +99,14 @@
   padding: 5px 6px;
   font-size: 9px;
 }
+.dueDateLowPriority {
+  background-color: #eeecec;
+  color: #767575;
+}
 
 .progressBox {
   display: flex;
-  gap: 10px;
+  gap: 4px;
 }
 .progress {
   font-size: 9px;

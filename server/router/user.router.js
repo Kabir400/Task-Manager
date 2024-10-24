@@ -10,6 +10,8 @@ const createUser = require("../controller/user/createUser.js");
 const login = require("../controller/user/loginUser.js");
 const logout = require("../controller/user/logoutUser.js");
 const isLoggedIn = require("../controller/user/isLoggedIn.js");
+const getInitials = require("../controller/user/getInitials.js");
+const getAlluser = require("../controller/user/getAlluser.js");
 
 //middlewares
 const checkLogin = require("../middleware/checkLogin.js");
@@ -19,5 +21,7 @@ router.post("/signup", userValidator, validate, createUser);
 router.post("/login", login);
 router.post("/logout", logout);
 router.get("/islogin", checkLogin, isLoggedIn);
+router.get("/getinitials/:_id", checkLogin, getInitials);
+router.get("/user/all", checkLogin, getAlluser);
 
 module.exports = router;

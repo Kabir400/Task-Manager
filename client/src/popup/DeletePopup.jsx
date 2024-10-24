@@ -29,10 +29,10 @@ function LogoutPopup({ show, togglePopup }) {
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className={styles.PopupHeadingLarge}>
-          Are you sure you want to logout?
+          Are you sure you want to Delete?
         </h3>
         <div className={styles.PopupPrimaryBtnLarge} onClick={clickHandler}>
-          {isPending ? "Logging Out..." : "Yes, Logout"}
+          {isPending ? "Romoving..." : "Yes, Delete"}
         </div>
         <div className={styles.PopupCancelBtnLarge} onClick={togglePopup}>
           Cancel

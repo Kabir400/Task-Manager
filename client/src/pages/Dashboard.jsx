@@ -3,6 +3,7 @@ const base_url = import.meta.env.VITE_BASE_URL;
 
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 //components
 import style from "../css/dashboard.module.css";
@@ -10,6 +11,9 @@ import Sidebar from "../components/Sidebar.jsx";
 import Card from "../components/Card.jsx";
 import getRequest from "../utility/getRequest.js";
 import Loader from "../components/Loader.jsx";
+
+//popups
+import CreateTaskPopup from "../popup/CreateTaskPopup.jsx";
 
 //image
 import people from "../assets/people.png";
@@ -19,23 +23,33 @@ import plus from "../assets/plus.png";
 
 function Dashboard() {
   const [isFiler, setIsFilter] = useState(false);
-  const [allTasks, setAllTasks] = useState([]);
   const [backlog, setBacklog] = useState([]);
   const [todo, setTodo] = useState([]);
   const [inprogress, setInProgress] = useState([]);
   const [done, setDone] = useState([]);
   const [isfetched, setIsFetched] = useState(false);
+  const [isCreatePopup, setCreatePopup] = useState(false);
+  const [reload, setReload] = useState(false);
+  const navigate = useNavigate();
 
   const toggleFilter = () => {
     setIsFilter(!isFiler);
+  };
+
+  const toggleCreatePopup = () => {
+    setCreatePopup(!isCreatePopup);
   };
 
   //fetch tasks
   useEffect(() => {
     (async () => {
       const result = await getRequest(`${base_url}/task/week`);
+      if (result.status === 401) {
+        navigate("/login");
+        return;
+      }
+
       if (result.suceess) {
-        setAllTasks(result.data);
         setBacklog(result.data.filter((task) => task.status === "BACKLOG"));
         setTodo(result.data.filter((task) => task.status === "TO-DO"));
         setInProgress(result.data.filter((task) => task.status === "PROGRESS"));
@@ -49,7 +63,8 @@ function Dashboard() {
         });
       }
     })();
-  }, []);
+    setReload(false);
+  }, [reload]);
 
   return (
     <div className={style.dashboardContainer}>
@@ -123,7 +138,12 @@ function Dashboard() {
             <div className={style.taskBoxHeadingBox}>
               <h4 className={style.taskBoxTitle}>To do</h4>
               <div className={style.taskBoxUtilityBox}>
-                <img src={plus} alt="add todo" className={style.addTodoIcon} />
+                <img
+                  src={plus}
+                  alt="add todo"
+                  className={style.addTodoIcon}
+                  onClick={toggleCreatePopup}
+                />
                 <img src={colaps} alt="colaps" className={style.colapsIcon} />
               </div>
             </div>
@@ -137,6 +157,7 @@ function Dashboard() {
                   checkList={task.checkLists}
                   status={task.status}
                   dueDate={task.dueDate}
+                  assignTo={task.assignTo}
                 />
               );
             })}
@@ -187,6 +208,13 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      {isCreatePopup && (
+        <CreateTaskPopup
+          show={isCreatePopup}
+          togglePopup={toggleCreatePopup}
+          setReload={setReload}
+        />
+      )}
     </div>
   );
 }

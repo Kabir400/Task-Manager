@@ -1,0 +1,275 @@
+.popupBox {
+  width: 660px;
+  background-color: #ffffff;
+  border-radius: 10.91px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.popupTitleBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popupTitle {
+  font-size: 17px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+.popupStar {
+  color: #ff0000;
+}
+.popupTitleInput {
+  padding: 11px;
+  border-radius: 4px;
+  box-shadow: 0px 1px 2px 0px #4d40551a;
+  border: 1px solid #e2e2e2;
+}
+.popupTitleInput:focus {
+  outline: none;
+}
+
+.popupPriorityBox {
+  display: flex;
+  gap: 20px;
+}
+.popupPriorityBtn {
+  border: 1px solid #e2e2e2;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.popupPriorityText {
+  color: #767575;
+  font-size: 14px;
+  font-weight: 500;
+}
+.highPriorityIcon {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-top: 4px;
+  background-color: #ff2473;
+}
+.moderatePriorityIcon {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-top: 4px;
+  background: #18b0ff;
+}
+.lowPriorityIcon {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-top: 4px;
+  background: #63c05b;
+}
+
+.popupAssignToBox {
+  display: flex;
+  gap: 15px;
+  position: relative;
+}
+.popupAssignToDropDown {
+  box-shadow: 0px 1px 2px 0px #4d40551a;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  padding: 10px 16px;
+  flex-grow: 1;
+  color: #9b959f;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.popupCheckListAddBtn {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.btnImg {
+  height: 14px;
+  width: 14px;
+}
+
+.popupBtnText {
+  color: #767575;
+  width: 500;
+  font-size: 16px;
+}
+
+.poupFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.dateInput {
+  /* if i do display none brower will palce the datepicker at the very top left so display hidden is used */
+  visibility: hidden;
+  pointer-events: none;
+  height: 0;
+  width: 0;
+}
+.popupSelectDueDate {
+  color: #707070;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  height: 46px;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.footerBtnBox {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.cancelBtn {
+  color: #cf3636;
+  padding: 9px 0 9px 0;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #cf3636;
+  border-radius: 12px;
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+  width: 140px;
+  font-weight: 600;
+}
+.createTaskBtn {
+  background: #17a2b8;
+  color: white;
+  box-shadow: 0px 2px 12px 0px #82698c33;
+  border-radius: 12px;
+  padding: 11px 0 11px 0;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  width: 140px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.checkListItems {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  max-height: 100px;
+}
+.checkListItem {
+  position: relative;
+  width: 100%;
+}
+.checkListCheckbox {
+  position: absolute;
+  top: 14px;
+  left: 8px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e2e2e2;
+  border-radius: 6px;
+}
+.checkListInput {
+  width: 100%;
+  padding: 12px 40px;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+}
+.checkListInput:focus {
+  outline: none;
+}
+.checkListDeteleIcon {
+  position: absolute;
+  top: 14px;
+  right: 11px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* dropdown */
+
+.dropdownContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid #7e7a7a14;
+  border-radius: 4px;
+  height: 250px;
+  overflow-y: auto;
+  padding: 20px;
+  position: absolute;
+  z-index: 999;
+  top: 35px;
+  left: 83px;
+  width: 86%;
+}
+.dropdownItemBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropdownItemInitials {
+  background: #ffebeb;
+  font-family: "DM Sans", serif;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
+.dropdownEmail {
+  color: #20102b;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+.dropdownBtn {
+  padding: 5px 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  width: 126px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+/* transition */
+.popupPriorityBtn:hover {
+  background: #eeecec;
+}
+.popupPriorityBtnActive {
+  background: #eeecec;
+}
+.createTaskBtn:hover {
+  background-color: #138496;
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.4);
+}
+.cancelBtn:hover {
+  color: rgb(228, 58, 28);
+  box-shadow: 0 4px 15px rgb(228, 58, 28);
+}
+.popupSelectDueDate:hover {
+  transform: scale(1.02);
+}
+.popupCheckListAddBtn:hover {
+  transform: scale(1.02);
+}
+
+.checkListDeteleIcon:hover {
+  transform: scale(1.1);
+}
+.dropdownBtn:hover {
+  transform: scale(1.02);
+}
