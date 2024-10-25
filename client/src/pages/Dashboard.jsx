@@ -14,6 +14,7 @@ import Loader from "../components/Loader.jsx";
 import EditTaskPopup from "../popup/EditTaskPopup.jsx";
 import DeletePopup from "../popup/DeletePopup.jsx";
 import formatName from "../utility/formatName.js";
+import AddBoardPopup from "../popup/AddBoardPopup.jsx";
 import { today } from "../utility/formatDate.js";
 
 //popups
@@ -39,6 +40,8 @@ function Dashboard() {
   const [isDeletePopup, setIsDeletePopup] = useState(false);
   const [filter, setFilter] = useState("week");
   const [name, setName] = useState("");
+  const [id, setId] = useState(null);
+  const [addBoardPopup, setAddBoardPopup] = useState(false);
 
   const [colaps, setColaps] = useState({
     backlog: false,
@@ -73,6 +76,10 @@ function Dashboard() {
   const toggleDeletePopup = () => {
     setIsDeletePopup(!isDeletePopup);
   };
+
+  const toggleBoard = () => {
+    setAddBoardPopup(!addBoardPopup);
+  };
   //fetch tasks
   useEffect(() => {
     (async () => {
@@ -84,6 +91,7 @@ function Dashboard() {
 
       if (result.suceess) {
         setName(result.data.name);
+        setId(result.data._id);
         setBacklog(
           result.data.tasks.filter((task) => task.status === "BACKLOG")
         );
@@ -115,7 +123,9 @@ function Dashboard() {
             <h3 className={style.boardHeading}>Board</h3>
             <div className={style.addpeopleContainer}>
               <img src={people} alt="logo" className={style.addPeopleIcon} />
-              <h3 className={style.addPeople}>Add People</h3>
+              <h3 className={style.addPeople} onClick={toggleBoard}>
+                Add People
+              </h3>
             </div>
           </div>
 
@@ -194,7 +204,7 @@ function Dashboard() {
             {backlog.map((task, index) => {
               return (
                 <Card
-                  key={task._id}
+                  key={index}
                   priority={task.priority}
                   title={task.title}
                   checkList={task.checkLists}
@@ -208,6 +218,7 @@ function Dashboard() {
                   toggleDeletePopup={toggleDeletePopup}
                   setTaskId={setTaskId}
                   colaps={colaps.backlog}
+                  id={id}
                 />
               );
             })}
@@ -235,7 +246,7 @@ function Dashboard() {
             {todo.map((task, index) => {
               return (
                 <Card
-                  key={task._id}
+                  key={index}
                   priority={task.priority}
                   title={task.title}
                   checkList={task.checkLists}
@@ -250,6 +261,7 @@ function Dashboard() {
                   toggleDeletePopup={toggleDeletePopup}
                   setTaskId={setTaskId}
                   colaps={colaps.todo}
+                  id={id}
                 />
               );
             })}
@@ -273,7 +285,7 @@ function Dashboard() {
             {inprogress.map((task, index) => {
               return (
                 <Card
-                  key={task._id}
+                  key={index}
                   priority={task.priority}
                   title={task.title}
                   checkList={task.checkLists}
@@ -287,6 +299,7 @@ function Dashboard() {
                   toggleDeletePopup={toggleDeletePopup}
                   setTaskId={setTaskId}
                   colaps={colaps.progress}
+                  id={id}
                 />
               );
             })}
@@ -308,7 +321,7 @@ function Dashboard() {
             {done.map((task, index) => {
               return (
                 <Card
-                  key={task._id}
+                  key={index}
                   priority={task.priority}
                   title={task.title}
                   checkList={task.checkLists}
@@ -323,6 +336,7 @@ function Dashboard() {
                   setTaskId={setTaskId}
                   colaps={colaps.done}
                   done={true}
+                  id={id}
                 />
               );
             })}
@@ -353,6 +367,14 @@ function Dashboard() {
           taskId={taskId}
         />
       )}
+      {AddBoardPopup && (
+        <AddBoardPopup
+          show={addBoardPopup}
+          togglePopup={toggleBoard}
+          array={[...todo, ...backlog, ...inprogress, ...done]}
+        />
+      )}
+
       {copyToast && <div className={style.copyToast}>Link Copied</div>}
     </div>
   );

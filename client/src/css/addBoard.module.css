@@ -1,0 +1,61 @@
+.popupBox {
+  width: 450px;
+  background-color: #ffffff;
+  border-radius: 10.91px;
+  padding: 30px;
+  padding-bottom: 20px;
+}
+
+.popupHeading {
+  font-weight: 600;
+  margin-bottom: 17px;
+}
+.popupInput {
+  border: 1px solid #767575;
+  border-radius: 10px;
+  padding: 8px 10px;
+  color: #00000080;
+  width: 100%;
+  margin-bottom: 33px;
+}
+
+.popupInput:focus {
+  outline: none;
+}
+.popupBtns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.popupCancelBtn {
+  width: 50%;
+  color: #cf3636;
+  padding: 7px 0 7px 0;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #cf3636;
+  height: 41px;
+  border-radius: 12px;
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.popupPrimaryBtn {
+  width: 50%;
+  background: #17a2b8;
+  color: white;
+  box-shadow: 0px 2px 12px 0px #82698c33;
+  border-radius: 12px;
+  padding: 9px 0 9px 0;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+.popupPrimaryBtn:hover {
+  background-color: #138496;
+  box-shadow: 0 4px 15px rgba(23, 162, 184, 0.4);
+}
+.popupCancelBtn:hover {
+  color: rgb(228, 58, 28);
+  box-shadow: 0 4px 15px rgb(228, 58, 28);
+}

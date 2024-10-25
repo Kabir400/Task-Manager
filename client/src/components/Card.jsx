@@ -31,6 +31,7 @@ function Card({
   setTaskId,
   colaps,
   done,
+  id,
 }) {
   //status list
   const statusList = ["TO-DO", "BACKLOG", "PROGRESS", "DONE"];
@@ -52,7 +53,7 @@ function Card({
 
   //fething the initials
   useEffect(() => {
-    if (assignTo) {
+    if (assignTo && assignTo !== id) {
       (async () => {
         const result = await getRequest(`${base_url}/getinitials/${assignTo}`);
         if (result.status === 401) {
@@ -65,7 +66,7 @@ function Card({
         }
       })();
     }
-  }, [assignTo]);
+  }, [assignTo, id]);
 
   const CheckListItems = () => {
     return checkList.map((item, index) => {

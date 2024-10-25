@@ -15,23 +15,8 @@ const taskValidator = [
 
   // Validate priority
   body("priority")
-    .notEmpty()
-    .withMessage("Priority is required")
-    .isIn(["HIGH PRIORITY", "MODERATE PRIORITY", "LOW PRIORITY"])
+    .isIn(["LOW PRIORITY", "MODERATE PRIORITY", "HIGH PRIORITY"])
     .withMessage("Invalid priority value"),
-
-  // Validate due date
-  body("dueDate")
-    .custom((value) => {
-      if (value === null || value === undefined) {
-        return true; // Allow null or undefined
-      }
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-        throw new Error("Invalid due date format");
-      }
-      return true;
-    })
-    .withMessage("Invalid due date format"),
 
   // Validate checklist array
   body("checkLists")
