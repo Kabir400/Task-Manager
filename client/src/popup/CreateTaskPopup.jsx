@@ -23,6 +23,7 @@ function CreateTaskPopup({ show, togglePopup, reload, setReload }) {
   const [assign, setAssign] = useState(null);
   const [dropdownLoader, setDropdownLoader] = useState(false);
   const [completed, setCompleted] = useState(0);
+  const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
   //value state
@@ -86,12 +87,14 @@ function CreateTaskPopup({ show, togglePopup, reload, setReload }) {
   //create task function
   const createTask = async () => {
     //validationg checklist title in the fornted because some unexpected issue occured in the backend
+    setIsPending(true);
     for (let i = 0; i < value.checkLists.length; i++) {
       if (value.checkLists[i].title === "") {
         toast.error("Please add checklist title", {
           position: "top-right",
           autoClose: 3000,
         });
+        setIsPending(false);
         return;
       }
     }
@@ -100,12 +103,14 @@ function CreateTaskPopup({ show, togglePopup, reload, setReload }) {
     const data = await postRequest(`${base_url}/task/create`, value, "json");
     if (data.status === 401) {
       navigate("/login");
+      setIsPending(false);
     }
     if (data.suceess === false) {
       toast.error(data.message, {
         position: "top-right",
         autoClose: 3000,
       });
+      setIsPending(false);
     }
     if (data.suceess === true) {
       toast.success(data.message, {
@@ -113,6 +118,7 @@ function CreateTaskPopup({ show, togglePopup, reload, setReload }) {
         autoClose: 3000,
       });
       setReload(true);
+      setIsPending(false);
       togglePopup();
     }
   };
@@ -312,7 +318,7 @@ function CreateTaskPopup({ show, togglePopup, reload, setReload }) {
               Cancel
             </div>
             <div className={style.createTaskBtn} onClick={createTask}>
-              Save
+              {isPending ? "Loding..." : "Save"}
             </div>
           </div>
         </div>

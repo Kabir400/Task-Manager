@@ -29,6 +29,8 @@ function Card({
   setCopyToast,
   toggleDeletePopup,
   setTaskId,
+  colaps,
+  done,
 }) {
   //status list
   const statusList = ["TO-DO", "BACKLOG", "PROGRESS", "DONE"];
@@ -94,6 +96,14 @@ function Card({
 
     setShow(!show);
   };
+
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    if (flag) {
+      toggleDropdown(); //flag is for avoiding toggle dropdown in initial render
+    }
+    setFlag(true);
+  }, [colaps]);
 
   //edit handler
   const editHandler = () => {
@@ -216,6 +226,7 @@ function Card({
                 ? style.dueDateHighPriority
                 : style.dueDateLowPriority
             }`}
+            style={{ backgroundColor: done ? "#63C05B" : "" }}
           >
             {formatDate(dueDate)}
           </div>

@@ -24,6 +24,7 @@ function EditTaskPopup({ show, togglePopup, setReload, data }) {
   const [dropdownLoader, setDropdownLoader] = useState(false);
   const [completed, setCompleted] = useState(0);
   const [taskId, setTaskId] = useState(null);
+  const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
   //value state
@@ -102,12 +103,14 @@ function EditTaskPopup({ show, togglePopup, setReload, data }) {
 
   //create task function
   const editTask = async () => {
+    setIsPending(true);
     for (let i = 0; i < value.checkLists.length; i++) {
       if (value.checkLists[i].title === "") {
         toast.error("Please add checklist title", {
           position: "top-right",
           autoClose: 3000,
         });
+        setIsPending(false);
         return;
       }
     }
@@ -119,12 +122,14 @@ function EditTaskPopup({ show, togglePopup, setReload, data }) {
     });
     if (data.status === 401) {
       navigate("/login");
+      setIsPending(false);
     }
     if (data.suceess === false) {
       toast.error(data.message, {
         position: "top-right",
         autoClose: 3000,
       });
+      setIsPending(false);
     }
     if (data.suceess === true) {
       toast.success(data.message, {
@@ -132,6 +137,7 @@ function EditTaskPopup({ show, togglePopup, setReload, data }) {
         autoClose: 3000,
       });
       setReload(true);
+      setIsPending(false);
       togglePopup();
     }
   };
@@ -331,7 +337,7 @@ function EditTaskPopup({ show, togglePopup, setReload, data }) {
               Cancel
             </div>
             <div className={style.createTaskBtn} onClick={editTask}>
-              Save
+              {isPending ? "Loading" : "Save"}
             </div>
           </div>
         </div>
