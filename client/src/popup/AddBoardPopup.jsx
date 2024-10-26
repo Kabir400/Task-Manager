@@ -11,8 +11,10 @@ function AddBoardPopup({ show, togglePopup, array }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setShared(false);
-  }, []);
+    if (show) {
+      setShared(false);
+    }
+  }, [show]);
 
   const addBoardHandler = async () => {
     console.log(array);

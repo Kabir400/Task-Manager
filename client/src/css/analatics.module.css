@@ -3,6 +3,55 @@
 }
 
 .analaticsBox {
-  background-color: rgb(172, 252, 115);
   width: 80%;
+  margin: 27px 40px;
+}
+
+.analaticsTitle {
+  font-size: 19px;
+  font-weight: 500;
+
+  margin-left: 10px;
+  margin-bottom: 44px;
+}
+.analaticsBoxContainer {
+  display: flex;
+  gap: 30px;
+  width: 90%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+  background-color: #f9fcff;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.itemTitleBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemIcon {
+  background: #90c4cc;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+}
+.itemTitle {
+  font-size: 15px;
+}
+
+.loaderConteiner {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
