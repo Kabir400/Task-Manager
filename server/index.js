@@ -7,9 +7,23 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://taskmanager-client-bice.vercel.app",
+  "https://taskmanager-client-git-master-kabir400s-projects.vercel.app",
+  "https://taskmanager-client-kln1f4t8f-kabir400s-projects.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      // Allow requests with no origin
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, origin); // Allow the request
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );

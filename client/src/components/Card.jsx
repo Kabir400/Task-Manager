@@ -154,8 +154,9 @@ function Card({
 
   //copy the url
   const shareHandler = () => {
+    const domainName = window.location.origin;
     navigator.clipboard
-      .writeText(`${base_url}/task/${taskId}`)
+      .writeText(`${domainName}/task/${taskId}`)
       .then(() => {
         setCopyToast(true);
         setTimeout(() => {
