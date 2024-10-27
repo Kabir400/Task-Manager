@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../css/settings.module.css";
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import putRequest from "../utility/putRequest.js";
+import getRequest from "../utility/getRequest.js";
 
 //images
 import email from "../assets/email.png";
@@ -23,7 +24,33 @@ function Setting() {
     newPassword: "",
   });
 
+  useEffect(() => {
+    (async () => {
+      const result = await getRequest(
+        `${import.meta.env.VITE_BASE_URL}/user/info`
+      );
+
+      if (result.status === 401) {
+        navigate("/login");
+      }
+
+      if (result.suceess === false) {
+        toast.error(result.message, {
+          autoClose: 3000,
+        });
+      }
+      if (result.suceess === true) {
+        setValue({
+          ...value,
+          name: result.data?.name || "",
+          email: result.data?.email || "",
+        });
+      }
+    })();
+  }, []);
+
   const updateHandler = async () => {
+    console.log(value);
     //validating if you try to update multiple things or not
     if (
       (value.name && value.email) ||
@@ -57,6 +84,9 @@ function Setting() {
       toast.success(result.message, {
         autoClose: 3000,
       });
+      if (result.data?.isItName === false) {
+        navigate("/");
+      }
       setIsPending(false);
       setValue({
         name: "",
@@ -77,7 +107,7 @@ function Setting() {
               type="text"
               placeholder="Name"
               className={style.input}
-              value={value.name}
+              value={value.name || ""}
               onChange={(e) => setValue({ ...value, name: e.target.value })}
             />
             <img src={name} alt="Name" className={style.settingsLeftIcon} />
@@ -87,7 +117,7 @@ function Setting() {
               type="email"
               placeholder="Update Email"
               className={style.input}
-              value={value.email}
+              value={value.email || ""}
               onChange={(e) => setValue({ ...value, email: e.target.value })}
             />
             <img src={email} alt="Email" className={style.settingsLeftIcon} />
@@ -97,7 +127,7 @@ function Setting() {
               type={view ? "text" : "password"}
               placeholder="Password"
               className={style.input}
-              value={value.oldPassword}
+              value={value.oldPassword || ""}
               onChange={(e) =>
                 setValue({ ...value, oldPassword: e.target.value })
               }
@@ -118,7 +148,7 @@ function Setting() {
               type={view ? "text" : "password"}
               placeholder="New Password"
               className={style.input}
-              value={value.newPassword}
+              value={value.newPassword || ""}
               onChange={(e) =>
                 setValue({ ...value, newPassword: e.target.value })
               }

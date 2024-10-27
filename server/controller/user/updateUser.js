@@ -6,7 +6,7 @@ const ApiError = require("../../utils/ApiError.js");
 const userModel = require("../../model/user.model.js");
 
 const updateUser = TryCatch(async (req, res, next) => {
-  const { _id } = req.user;
+  const { _id, email: userEmail } = req.user;
   const { name, email, oldPassword, newPassword } = req.body;
 
   //validation (backend)-->
@@ -43,24 +43,42 @@ const updateUser = TryCatch(async (req, res, next) => {
       200,
       "User updated successfully",
       true,
-      user
+      { isItName: true }
     );
     res.status(200).json(apiresponse);
   }
 
   //email-->
   if (email) {
+    if (email === userEmail) {
+      return next(new ApiError(400, "Your email is same as before"));
+    }
+
     const user = await userModel.findOne({ _id });
     if (!user) {
       return next(new ApiError(400, "User not found"));
     }
     user.email = email;
     await user.save();
+
+    //logout the user
+    res.clearCookie("accessToken", {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+    });
+
+    res.clearCookie("refreshToken", {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+    });
+
     const apiresponse = new ApiResponse(
       200,
       "User updated successfully",
       true,
-      user
+      { isItName: false }
     );
     res.status(200).json(apiresponse);
   }
@@ -82,11 +100,25 @@ const updateUser = TryCatch(async (req, res, next) => {
     }
     user.password = newPassword;
     await user.save();
+
+    //logging out the user
+    res.clearCookie("accessToken", {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+    });
+
+    res.clearCookie("refreshToken", {
+      path: "/",
+      sameSite: "None",
+      secure: true,
+    });
+
     const apiresponse = new ApiResponse(
       200,
       "User updated successfully",
       true,
-      user
+      { isItName: false }
     );
     res.status(200).json(apiresponse);
   }

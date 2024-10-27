@@ -1,44 +1,51 @@
 const { body } = require("express-validator");
 
 const settingsValidator = [
-  // Check email is empty or valid
+  // Validate email field - allow empty or valid email format
   body("email")
     .custom((value) => {
-      if (value === "") return true;
-      return /\S+@\S+\.\S+/.test(value);
+      if (value === "") return true; // Allow empty
+      return /\S+@\S+\.\S+/.test(value); // Validate format
     })
     .withMessage("Invalid email format"),
 
-  //validating name is empty or valid(with proper alphabets)
+  // Validate name field - allow empty or only alphabetic characters
   body("name")
     .custom((value) => {
-      if (value === "") return true;
-      return /^[A-Za-z\s-]+$/.test(value);
+      if (value === "") return true; // Allow empty
+      return /^[A-Za-z\s-]+$/.test(value); // Validate format
     })
     .withMessage("Name must contain only alphabets, spaces, or hyphens")
     .trim(),
 
-  //checking old and new passwords are pesent if yes we validating both are strong or not
+  // Check if both old and new passwords are provided and valid
   body("oldPassword").custom((value, { req }) => {
-    if (value === "" && req.body.newPassword === "") {
+    const { oldPassword, newPassword } = req.body;
+
+    // Allow both to be empty for non-password updates
+    if (!oldPassword && !newPassword) {
       return true;
     }
-    if (value && req.body.newPassword) {
-      // Validate both oldPassword and newPassword are strong
+
+    // Require both fields for password updates
+    if (oldPassword && newPassword) {
       const strongPasswordRegex =
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
-      if (!strongPasswordRegex.test(value)) {
+
+      if (!strongPasswordRegex.test(oldPassword)) {
         throw new Error(
           "Old password must be strong (at least 8 characters with uppercase, lowercase, number, and special character)"
         );
       }
-      if (!strongPasswordRegex.test(req.body.newPassword)) {
+      if (!strongPasswordRegex.test(newPassword)) {
         throw new Error(
           "New password must be strong (at least 8 characters with uppercase, lowercase, number, and special character)"
         );
       }
       return true;
     }
+
+    // If one is missing, throw an error
     throw new Error("Both old and new passwords must be provided together");
   }),
 ];
