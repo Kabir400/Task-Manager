@@ -12,6 +12,7 @@ import Signup from "./pages/Signup.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Settings from "./pages/Settings.jsx";
 import Analatics from "./pages/Analatics.jsx";
+import SharedTask from "./pages/SharedTask.jsx";
 
 //toast improts
 import { ToastContainer } from "react-toastify";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/analatics" element={<Analatics />} />
+          <Route path="/task/:id" element={<SharedTask />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

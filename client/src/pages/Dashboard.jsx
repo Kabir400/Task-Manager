@@ -219,6 +219,7 @@ function Dashboard() {
                   setTaskId={setTaskId}
                   colaps={colaps.backlog}
                   id={id}
+                  assignTo={task.assignTo}
                 />
               );
             })}
@@ -300,6 +301,7 @@ function Dashboard() {
                   setTaskId={setTaskId}
                   colaps={colaps.progress}
                   id={id}
+                  assignTo={task.assignTo}
                 />
               );
             })}
@@ -337,6 +339,7 @@ function Dashboard() {
                   colaps={colaps.done}
                   done={true}
                   id={id}
+                  assignTo={task.assignTo}
                 />
               );
             })}

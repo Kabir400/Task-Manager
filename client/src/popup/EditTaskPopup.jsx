@@ -36,6 +36,7 @@ function EditTaskPopup({ show, togglePopup, setReload, data }) {
     checkLists: [],
   });
 
+  console.log(data);
   //fetch the task data
   useEffect(() => {
     if (data) {

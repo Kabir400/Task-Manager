@@ -75,7 +75,7 @@ function Card({
           <input
             type="checkbox"
             checked={item.status}
-            onChange={() => {}}
+            readOnly
             className={style.checkListCheckbox}
           />
           <p className={style.checkListDropdownText}>{item.title}</p>
@@ -112,7 +112,7 @@ function Card({
     setEditData({
       title,
       priority,
-      dueDate: formatymd(dueDate),
+      dueDate: dueDate ? formatymd(dueDate) : null,
       email,
       checkLists: checkList,
       id: assignTo,

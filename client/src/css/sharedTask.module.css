@@ -1,0 +1,122 @@
+.sharedTaskContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.titleBox {
+  position: absolute;
+  display: flex;
+  gap: 13px;
+  top: 24px;
+  left: 29px;
+}
+.box {
+  max-width: 700px;
+  border: 2px solid #edf5fe;
+  width: 650px;
+  padding: 30px;
+  border-radius: 12px;
+  overflow-y: auto;
+  max-height: 460px;
+}
+.boxPriority {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 11px;
+  margin-top: 6px;
+}
+
+.priorityIcon {
+  border-radius: 50%;
+  width: 11px;
+  height: 11px;
+}
+.priorityText {
+  color: #707070;
+  font-weight: 500;
+  font-size: 12px;
+}
+.taskHeading {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 36px;
+}
+.checkListTitle {
+  margin-bottom: 10px;
+}
+
+.checkListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.checkListBox {
+  display: flex;
+  gap: 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e2e2;
+  padding: 10px;
+  overflow: auto;
+}
+.checkListCheckbox {
+  border: 2px solid #e2e2e2;
+  border-radius: 6px;
+  width: 18px;
+}
+.dueDateContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.dueDateBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #cf3636;
+  border-radius: 8px;
+  color: white;
+  padding: 5px 10px;
+  font-size: 15px;
+}
+.loaderConteiner {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.HIGH {
+  background-color: #ff2473;
+}
+.LOW {
+  background: #63c05b;
+}
+.MODERATE {
+  background-color: #18b0ff;
+}
+
+@media screen and (max-width: 850px) {
+  .box {
+    width: 90%;
+  }
+  .taskHeading {
+    font-size: 19px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .taskHeading {
+    font-size: 17px;
+  }
+  .checkTask {
+    font-size: 12px;
+  }
+  .dueDateBtn {
+    padding: 3px 7px;
+    font-size: 12px;
+  }
+  .dueDateTitle {
+    font-size: 14px;
+  }
+}

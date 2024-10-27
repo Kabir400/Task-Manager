@@ -14,6 +14,7 @@ const deleteTask = require("../controller/task/deleteTask.js");
 const getMonthTask = require("../controller/task/getMonthTask.js");
 const getTodayTask = require("../controller/task/getTodayTask.js");
 const countTasks = require("../controller/task/countTasks.js");
+const getSingleTask = require("../controller/task/getSingleTask.js");
 
 //middlewares
 const checkLogin = require("../middleware/checkLogin.js");
@@ -28,5 +29,5 @@ router.put("/task/edit", checkLogin, taskValidator, validate, editTask);
 router.put("/task/status", checkLogin, statusValidator, validate, editStatus);
 router.delete("/task/delete", checkLogin, deleteTask);
 router.get("/task/count", checkLogin, countTasks);
-
+router.get("/task/single/:taskId", getSingleTask);
 module.exports = router;
