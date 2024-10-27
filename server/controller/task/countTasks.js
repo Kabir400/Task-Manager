@@ -30,24 +30,26 @@ const countTasks = TryCatch(async (req, res, next) => {
   const allTasks = [...tasks, ...boardFormated];
 
   allTasks.forEach((task) => {
-    if (task.dueDate) {
-      countObj.dueDateTask++;
-    }
-    if (task.priority === "LOW PRIORITY") {
-      countObj.lowPriority++;
-    } else if (task.priority === "MODERATE PRIORITY") {
-      countObj.moderatePriority++;
-    } else if (task.priority === "HIGH PRIORITY") {
-      countObj.highPriority++;
-    }
-    if (task.status === "BACKLOG") {
-      countObj.backlog++;
-    } else if (task.status === "PROGRESS") {
-      countObj.progress++;
-    } else if (task.status === "DONE") {
-      countObj.done++;
-    } else if (task.status === "TO-DO") {
-      countObj.todo++;
+    if (task) {
+      if (task.dueDate) {
+        countObj.dueDateTask++;
+      }
+      if (task.priority === "LOW PRIORITY") {
+        countObj.lowPriority++;
+      } else if (task.priority === "MODERATE PRIORITY") {
+        countObj.moderatePriority++;
+      } else if (task.priority === "HIGH PRIORITY") {
+        countObj.highPriority++;
+      }
+      if (task.status === "BACKLOG") {
+        countObj.backlog++;
+      } else if (task.status === "PROGRESS") {
+        countObj.progress++;
+      } else if (task.status === "DONE") {
+        countObj.done++;
+      } else if (task.status === "TO-DO") {
+        countObj.todo++;
+      }
     }
   });
 
