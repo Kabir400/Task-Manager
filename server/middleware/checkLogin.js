@@ -38,12 +38,12 @@ const checkLogin = TryCatch(async (req, res, next) => {
   try {
     decoded = jwt.verify(token, secret); // Verify the token
   } catch (error) {
-    return next(new ApiError(401, "Invalid or expired token", error));
+    return next(new ApiError(401, "Invalid or expired token"));
   }
   const user = await userModel.findById(decoded._id).select("-password");
 
   if (!user) {
-    return next(new ApiError(401, "You are unauthorized", null, false));
+    return next(new ApiError(401, "You are unauthorized"));
   }
 
   // If refreshToken is used, generate new tokens
