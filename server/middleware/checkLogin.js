@@ -34,7 +34,12 @@ const checkLogin = TryCatch(async (req, res, next) => {
   }
 
   // Decode and verify token
-  const decoded = await jwt.verify(token, secret);
+  let decoded;
+  try {
+    decoded = jwt.verify(token, secret); // Verify the token
+  } catch (error) {
+    return next(new ApiError(401, "Invalid or expired token", error));
+  }
   const user = await userModel.findById(decoded._id).select("-password");
 
   if (!user) {
